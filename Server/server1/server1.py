@@ -188,20 +188,20 @@ def get_sougou(od,td):
     arr1_url=data['top'][0][0]['url']
     arr1_num=random.randint(80,100)
 
-    arr2=data['top'][0][1]['title']
-    arr2_url=data['top'][0][1]['url']
+    arr2=data['top'][1][0]['title']
+    arr2_url=data['top'][1][0]['url']
     arr2_num=random.randint(80,100)
 
-    arr3=data['top'][1][0]['title']
-    arr3_url=data['top'][1][0]['url']
+    arr3=data['top'][2][0]['title']
+    arr3_url=data['top'][2][0]['url']
     arr3_num=random.randint(80,100)
 
-    arr4=data['top'][1][1]['title']
-    arr4_url=data['top'][1][1]['url']
+    arr4=data['top'][3][1]['title']
+    arr4_url=data['top'][3][1]['url']
     arr4_num=random.randint(80,100)
 
-    arr5=data['top'][2][0]['title']
-    arr5_url=data['top'][2][0]['url']
+    arr5=data['top'][4][0]['title']
+    arr5_url=data['top'][4][0]['url']
     arr5_num=random.randint(80,100)
 
     """
@@ -465,6 +465,7 @@ def png_post(od,td):
     return creat_png(all_string,od,1)
 
 if __name__=='__main__':
+    #print(get_163('1','1'))
     png_post(1,1)
     myserver.make_myserver()
     

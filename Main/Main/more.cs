@@ -42,7 +42,7 @@ namespace Main
                     listBox3.Items.Add(Convert.ToString(r[2]));
                     string s = Convert.ToString(r[3]);
                     string s2 = "";
-                    for (int i = 0; i < 10; i++)
+                    for (int i = 0; i < 9; i++)
                     {
                         s2 += s[i];
                     }

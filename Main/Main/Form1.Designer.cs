@@ -109,13 +109,10 @@
             this.label25 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
             this.tabPage6 = new System.Windows.Forms.TabPage();
-            this.button30 = new System.Windows.Forms.Button();
-            this.listBox14 = new System.Windows.Forms.ListBox();
             this.listBox13 = new System.Windows.Forms.ListBox();
             this.textBox5 = new System.Windows.Forms.TextBox();
             this.button28 = new System.Windows.Forms.Button();
             this.button27 = new System.Windows.Forms.Button();
-            this.button29 = new System.Windows.Forms.Button();
             this.button17 = new System.Windows.Forms.Button();
             this.textBox11 = new System.Windows.Forms.TextBox();
             this.label22 = new System.Windows.Forms.Label();
@@ -126,7 +123,6 @@
             this.textBox9 = new System.Windows.Forms.TextBox();
             this.textBox10 = new System.Windows.Forms.TextBox();
             this.label39 = new System.Windows.Forms.Label();
-            this.label40 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.tabPage7 = new System.Windows.Forms.TabPage();
             this.panel12 = new System.Windows.Forms.Panel();
@@ -167,6 +163,10 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.timer3 = new System.Windows.Forms.Timer(this.components);
+            this.label40 = new System.Windows.Forms.Label();
+            this.listBox14 = new System.Windows.Forms.ListBox();
+            this.button29 = new System.Windows.Forms.Button();
+            this.button30 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -944,25 +944,6 @@
             this.tabPage6.Text = "舆情预警";
             this.tabPage6.UseVisualStyleBackColor = true;
             // 
-            // button30
-            // 
-            this.button30.Location = new System.Drawing.Point(361, 237);
-            this.button30.Name = "button30";
-            this.button30.Size = new System.Drawing.Size(94, 44);
-            this.button30.TabIndex = 11;
-            this.button30.Text = "删除";
-            this.button30.UseVisualStyleBackColor = true;
-            this.button30.Click += new System.EventHandler(this.button30_Click);
-            // 
-            // listBox14
-            // 
-            this.listBox14.FormattingEnabled = true;
-            this.listBox14.ItemHeight = 25;
-            this.listBox14.Location = new System.Drawing.Point(371, 102);
-            this.listBox14.Name = "listBox14";
-            this.listBox14.Size = new System.Drawing.Size(190, 129);
-            this.listBox14.TabIndex = 10;
-            // 
             // listBox13
             // 
             this.listBox13.FormattingEnabled = true;
@@ -998,16 +979,6 @@
             this.button27.Text = "添加";
             this.button27.UseVisualStyleBackColor = true;
             this.button27.Click += new System.EventHandler(this.button27_Click);
-            // 
-            // button29
-            // 
-            this.button29.Location = new System.Drawing.Point(467, 237);
-            this.button29.Name = "button29";
-            this.button29.Size = new System.Drawing.Size(94, 44);
-            this.button29.TabIndex = 6;
-            this.button29.Text = "完成";
-            this.button29.UseVisualStyleBackColor = true;
-            this.button29.Click += new System.EventHandler(this.button29_Click);
             // 
             // button17
             // 
@@ -1102,15 +1073,6 @@
             this.label39.Size = new System.Drawing.Size(162, 25);
             this.label39.TabIndex = 0;
             this.label39.Text = "新建关键词：";
-            // 
-            // label40
-            // 
-            this.label40.AutoSize = true;
-            this.label40.Location = new System.Drawing.Point(291, 92);
-            this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(87, 25);
-            this.label40.TabIndex = 0;
-            this.label40.Text = "方案：";
             // 
             // label19
             // 
@@ -1571,6 +1533,44 @@
             this.timer3.Enabled = true;
             this.timer3.Interval = 1000;
             this.timer3.Tick += new System.EventHandler(this.timer3_Tick);
+            // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.Location = new System.Drawing.Point(291, 92);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(87, 25);
+            this.label40.TabIndex = 0;
+            this.label40.Text = "方案：";
+            // 
+            // listBox14
+            // 
+            this.listBox14.FormattingEnabled = true;
+            this.listBox14.ItemHeight = 25;
+            this.listBox14.Location = new System.Drawing.Point(371, 102);
+            this.listBox14.Name = "listBox14";
+            this.listBox14.Size = new System.Drawing.Size(190, 129);
+            this.listBox14.TabIndex = 10;
+            // 
+            // button29
+            // 
+            this.button29.Location = new System.Drawing.Point(467, 237);
+            this.button29.Name = "button29";
+            this.button29.Size = new System.Drawing.Size(94, 44);
+            this.button29.TabIndex = 6;
+            this.button29.Text = "完成";
+            this.button29.UseVisualStyleBackColor = true;
+            this.button29.Click += new System.EventHandler(this.button29_Click);
+            // 
+            // button30
+            // 
+            this.button30.Location = new System.Drawing.Point(361, 237);
+            this.button30.Name = "button30";
+            this.button30.Size = new System.Drawing.Size(94, 44);
+            this.button30.TabIndex = 11;
+            this.button30.Text = "删除";
+            this.button30.UseVisualStyleBackColor = true;
+            this.button30.Click += new System.EventHandler(this.button30_Click);
             // 
             // Form1
             // 

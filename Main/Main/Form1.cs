@@ -227,8 +227,8 @@ namespace Main
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Thread mythread = new Thread(ThreadMain);
-            mythread.Start();
+            //Thread mythread = new Thread(ThreadMain);
+            //mythread.Start();
             if (form_flag==1)
             {
                 Login l1 = new Login(this);
@@ -256,7 +256,7 @@ namespace Main
                 listBox3.Items.Add(Convert.ToString(r[2]).Trim('"'));
                 string s_time = "";
                 string s_time2 = Convert.ToString(r[3]).Trim('"');
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 9; i++)
                 {
                     s_time += s_time2[i];
                 }
@@ -328,7 +328,7 @@ namespace Main
                 listBox3.Items.Add(Convert.ToString(r[2]).Trim('"'));
                 string s_time = "";
                 string s_time2 = Convert.ToString(r[3]).Trim('"');
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 9; i++)
                 {
                     s_time += s_time2[i];
                 }
@@ -361,7 +361,7 @@ namespace Main
                 listBox3.Items.Add(Convert.ToString(r[2]).Trim('"'));
                 string s_time = "";
                 string s_time2 = Convert.ToString(r[3]).Trim('"');
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 9; i++)
                 {
                     s_time += s_time2[i];
                 }
@@ -429,7 +429,7 @@ namespace Main
                 txt_news[i] = txt_news[i].Trim('"').Trim(' ').Trim('"');
                 String sql_find = String.Format("Select count(*) from news_table where news_name='{0}'", txt_news[0]);
                 if (get_similar(sql_find))
-                {
+                { 
                     flag[i] = 1;
                 }
             }
@@ -620,7 +620,7 @@ namespace Main
                 loc_news[15] = port_get(new_url_loc).Trim('"').Trim(' ').Trim('"');
                 url_news[15] = port_get(new_url_url).Trim('"').Trim(' ').Trim('"');
                 side_news[15] = port_get(new_url_side).Trim('"').Trim(' ').Trim('"');
-                insert_comments(2, url_news[15], txt_news[15], Convert.ToString(dt.Date), loc_news[15]);
+                insert_comments(2, url_news[15], txt_news[15], Convert.ToString(dt.Date),loc_news[15]);
             }
             new_url_num = url + "name=get_tieba()&od=2&td=2";
             new_url_url = url + "name=get_tieba()&od=3&td=2";
@@ -640,6 +640,7 @@ namespace Main
             new_url_side = url + "name=get_tieba()&od=5&td=3";
             if (flag[17] == 1)
             {
+                
                 num_news[17] = Convert.ToInt32(port_get(new_url_num));
                 loc_news[17] = port_get(new_url_loc).Trim('"').Trim(' ').Trim('"');
                 url_news[17] = port_get(new_url_url).Trim('"').Trim(' ').Trim('"');
@@ -684,7 +685,7 @@ namespace Main
             for(int i=0;i<4;i++)
             {
                 s = port_get("http://127.0.0.1:5088/?name=png_post()&od="+Convert.ToString(i+1)+"&td=1");
-                if (s == "null")
+                if (s == "null" || s=="")
                     continue;
                 String sql = String.Format("insert into key_table (keywords) values ('{0}')",s);
                 insert_news(sql);
@@ -710,7 +711,7 @@ namespace Main
             }*/
         }
          
-        public static void insert_comments(int flag,string url,string news_name,string mytime, string loc)//flag：1是豆瓣，2是百度贴吧
+        public static void insert_comments(int flag,string url,string news_name,string mytime,string loc)//flag：1是豆瓣，2是百度贴吧
         {
             if(flag==1)
             {
@@ -750,7 +751,8 @@ namespace Main
                         continue;
                     string comm_side = "";
                     comm_side = port_get("http://127.0.0.1:5088/?name=get_side&od=" + comm);
-                    if (comm_side == null) comm_side = "中性";
+                    if (comm_side == null) 
+                        comm_side = "中性";
                     String sql_insert = String.Format("insert into comments (comment_content,topic,side,[time],location) values ('{0}','{1}','{2}','{3}','{4}')", comm, news_name, comm_side.Trim('"').Trim('/'),mytime,loc);
                     insert_news(sql_insert);
                 }
@@ -765,6 +767,12 @@ namespace Main
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
+                    return;
+                }
+                if(long_s==null)
+                {
+                    MessageBox.Show("error!");
+                    return;
                 }
                 int val = 1;
                 for (int i = 0; ; i++)
@@ -772,6 +780,7 @@ namespace Main
                     string comm = "";
                     for (int j = val; j < long_s.Length; j++)
                     {
+
                         val = j + 1;
                         if (long_s[j] == '$')
                         {
@@ -786,7 +795,7 @@ namespace Main
                     string comm_side = "";
                     comm_side = port_get("http://127.0.0.1:5088/?name=get_side&od=" + comm);
                     if (comm_side == null) comm_side = "中性";
-                    String sql_insert = String.Format("insert into comments (comment_content,topic,side,[time],location) values ('{0}','{1}','{2}','{3}','{4}')", comm, news_name, comm_side.Trim('"').Trim('/'), mytime, loc);
+                    String sql_insert = String.Format("insert into comments (comment_content,topic,side,[time],location) values ('{0}','{1}','{2}','{3}','{4}')", comm, news_name, comm_side.Trim('"').Trim('/'),mytime,loc);
                     insert_news(sql_insert);
                 }
             }
@@ -839,7 +848,7 @@ namespace Main
                 listBox3.Items.Add(Convert.ToString(r[2]).Trim('"'));
                 string s_time = "";
                 string s_time2 = Convert.ToString(r[3]).Trim('"');
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 9; i++)
                 {
                     s_time += s_time2[i];
                 }
@@ -866,7 +875,7 @@ namespace Main
                 listBox3.Items.Add(Convert.ToString(r[2]).Trim('"'));
                 string s_time = "";
                 string s_time2 = Convert.ToString(r[3]).Trim('"');
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 9; i++)
                 {
                     s_time += s_time2[i];
                 }
@@ -893,7 +902,7 @@ namespace Main
                 listBox3.Items.Add(Convert.ToString(r[2]).Trim('"'));
                 string s_time = "";
                 string s_time2 = Convert.ToString(r[3]).Trim('"');
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 9; i++)
                 {
                     s_time += s_time2[i];
                 }
@@ -922,7 +931,7 @@ namespace Main
                 listBox3.Items.Add(Convert.ToString(r[2]).Trim('"'));
                 string s_time = "";
                 string s_time2 = Convert.ToString(r[3]).Trim('"');
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 9; i++)
                 {
                     s_time += s_time2[i];
                 }
@@ -952,13 +961,14 @@ namespace Main
                 ada.Fill(ds);
                 dataGridView1.DataSource = ds.Tables[0];
 
-                Bitmap p1 = new Bitmap("D:/result2.png");
+                Bitmap p1 = new Bitmap("D:/result.png");
                 pictureBox2.Image = p1;
             }
             if(tabControl1.SelectedIndex==3)
             {
                 String sql = String.Format("Select * from zt");
                 OleDbDataReader r = datahelper.get_reader(sql);
+
                 listBox4.Items.Clear();
                 while (r.Read())
                 {
@@ -1047,10 +1057,16 @@ namespace Main
                 int index_3 = 0;
                 while (r.Read())
                 {
-                    x_name[index_3] = Convert.ToString(r[0]);
+                    x_name[index_3] = "";
+                    string val_i= Convert.ToString(r[0]);
+                    for (int i_index = 0; i_index < 9; i_index++)
+                    {
+                        x_name[index_3] += val_i[i_index];
+                    }
+                    x_name[index_3] += "    ";
                     y_num[index_3] = Convert.ToInt32(r[1]);
                     index_3++;
-                    if (index_3 > 5)
+                    if (index_3 >5)
                         break;
                 }
                 List<string> xData1 = new List<string>() { x_name[5], x_name[4], x_name[3], x_name[2], x_name[1], x_name[0] };
@@ -1064,7 +1080,13 @@ namespace Main
                 index_3 = 0;
                 while (r.Read())
                 {
-                    x_name[index_3] = Convert.ToString(r[0]);
+                    x_name[index_3] = "";
+                    string val_i = Convert.ToString(r[0]);
+                    for (int i_index = 0; i_index < 9; i_index++)
+                    {
+                        x_name[index_3] += val_i[i_index];
+                    }
+                    x_name[index_3] += "    ";
                     y_num[index_3] = Convert.ToInt32(r[1]);
                     index_3++;
                     if (index_3 > 5)
@@ -1083,7 +1105,13 @@ namespace Main
                 index_3 = 0;
                 while (r.Read())
                 {
-                    x_name[index_3] = Convert.ToString(r[0]);
+                    x_name[index_3] = "";
+                    string val_i = Convert.ToString(r[0]);
+                    for (int i_index = 0; i_index < 9; i_index++)
+                    {
+                        x_name[index_3] += val_i[i_index];
+                    }
+                    x_name[index_3] += "    ";
                     y_num[index_3] = Convert.ToInt32(r[1]);
                     index_3++;
                     if (index_3 > 5)
@@ -1102,7 +1130,13 @@ namespace Main
                 index_3 = 0;
                 while (r.Read())
                 {
-                    x_name[index_3] = Convert.ToString(r[0]);
+                    x_name[index_3] = "";
+                    string val_i = Convert.ToString(r[0]);
+                    for (int i_index = 0; i_index < 9; i_index++)
+                    {
+                        x_name[index_3] += val_i[i_index];
+                    }
+                    x_name[index_3] += "    ";
                     y_num[index_3] = Convert.ToInt32(r[1]);
                     index_3++;
                     if (index_3 > 5)
@@ -1467,7 +1501,13 @@ namespace Main
             int index_3 = 0;
             while (r.Read())
             {
-                x_name[index_3] = Convert.ToString(r[0]);
+                x_name[index_3] = "";
+                string val_i = Convert.ToString(r[0]);
+                for (int i_index = 0; i_index < 9; i_index++)
+                {
+                    x_name[index_3] += val_i[i_index];
+                }
+                x_name[index_3] += "    ";
                 y_num[index_3] = Convert.ToInt32(r[1]);
                 index_3++;
                 if (index_3 > 5)
@@ -1484,7 +1524,13 @@ namespace Main
             index_3 = 0;
             while (r.Read())
             {
-                x_name[index_3] = Convert.ToString(r[0]);
+                x_name[index_3] = "";
+                string val_i = Convert.ToString(r[0]);
+                for (int i_index = 0; i_index < 9; i_index++)
+                {
+                    x_name[index_3] += val_i[i_index];
+                }
+                x_name[index_3] += "    ";
                 y_num[index_3] = Convert.ToInt32(r[1]);
                 index_3++;
                 if (index_3 > 5)
@@ -1503,7 +1549,13 @@ namespace Main
             index_3 = 0;
             while (r.Read())
             {
-                x_name[index_3] = Convert.ToString(r[0]);
+                x_name[index_3] = "";
+                string val_i = Convert.ToString(r[0]);
+                for (int i_index = 0; i_index < 9; i_index++)
+                {
+                    x_name[index_3] += val_i[i_index];
+                }
+                x_name[index_3] += "    ";
                 y_num[index_3] = Convert.ToInt32(r[1]);
                 index_3++;
                 if (index_3 > 5)
@@ -1522,7 +1574,13 @@ namespace Main
             index_3 = 0;
             while (r.Read())
             {
-                x_name[index_3] = Convert.ToString(r[0]);
+                x_name[index_3] = "";
+                string val_i = Convert.ToString(r[0]);
+                for (int i_index = 0; i_index < 9; i_index++)
+                {
+                    x_name[index_3] += val_i[i_index];
+                }
+                x_name[index_3] += "    ";
                 y_num[index_3] = Convert.ToInt32(r[1]);
                 index_3++;
                 if (index_3 > 5)
@@ -1592,7 +1650,13 @@ namespace Main
             int index_3 = 0;
             while (r.Read())
             {
-                x_name[index_3] = Convert.ToString(r[0]);
+                x_name[index_3] = "";
+                string val_i = Convert.ToString(r[0]);
+                for (int i_index = 0; i_index < 9; i_index++)
+                {
+                    x_name[index_3] += val_i[i_index];
+                }
+                x_name[index_3] += "    ";
                 y_num[index_3] = Convert.ToInt32(r[1]);
                 index_3++;
                 if (index_3 > 5)
@@ -1609,7 +1673,13 @@ namespace Main
             index_3 = 0;
             while (r.Read())
             {
-                x_name[index_3] = Convert.ToString(r[0]);
+                x_name[index_3] = "";
+                string val_i = Convert.ToString(r[0]);
+                for (int i_index = 0; i_index < 9; i_index++)
+                {
+                    x_name[index_3] += val_i[i_index];
+                }
+                x_name[index_3] += "    ";
                 y_num[index_3] = Convert.ToInt32(r[1]);
                 index_3++;
                 if (index_3 > 5)
@@ -1628,7 +1698,13 @@ namespace Main
             index_3 = 0;
             while (r.Read())
             {
-                x_name[index_3] = Convert.ToString(r[0]);
+                x_name[index_3] = "";
+                string val_i = Convert.ToString(r[0]);
+                for (int i_index = 0; i_index < 9; i_index++)
+                {
+                    x_name[index_3] += val_i[i_index];
+                }
+                x_name[index_3] += "    ";
                 y_num[index_3] = Convert.ToInt32(r[1]);
                 index_3++;
                 if (index_3 > 5)
@@ -1647,7 +1723,13 @@ namespace Main
             index_3 = 0;
             while (r.Read())
             {
-                x_name[index_3] = Convert.ToString(r[0]);
+                x_name[index_3] = "";
+                string val_i = Convert.ToString(r[0]);
+                for (int i_index = 0; i_index < 9; i_index++)
+                {
+                    x_name[index_3] += val_i[i_index];
+                }
+                x_name[index_3] += "    ";
                 y_num[index_3] = Convert.ToInt32(r[1]);
                 index_3++;
                 if (index_3 > 5)
@@ -1726,7 +1808,13 @@ namespace Main
             int index_3 = 0;
             while (r.Read())
             {
-                x_name[index_3] = Convert.ToString(r[0]);
+                x_name[index_3] = "";
+                string val_i = Convert.ToString(r[0]);
+                for (int i_index = 0; i_index < 9; i_index++)
+                {
+                    x_name[index_3] += val_i[i_index];
+                }
+                x_name[index_3] += "    ";
                 y_num[index_3] = Convert.ToInt32(r[1]);
                 index_3++;
                 if (index_3 > 5)
@@ -1743,7 +1831,13 @@ namespace Main
             index_3 = 0;
             while (r.Read())
             {
-                x_name[index_3] = Convert.ToString(r[0]);
+                x_name[index_3] = "";
+                string val_i = Convert.ToString(r[0]);
+                for (int i_index = 0; i_index < 9; i_index++)
+                {
+                    x_name[index_3] += val_i[i_index];
+                }
+                x_name[index_3] += "    ";
                 y_num[index_3] = Convert.ToInt32(r[1]);
                 index_3++;
                 if (index_3 > 5)
@@ -1762,7 +1856,13 @@ namespace Main
             index_3 = 0;
             while (r.Read())
             {
-                x_name[index_3] = Convert.ToString(r[0]);
+                x_name[index_3] = "";
+                string val_i = Convert.ToString(r[0]);
+                for (int i_index = 0; i_index < 9; i_index++)
+                {
+                    x_name[index_3] += val_i[i_index];
+                }
+                x_name[index_3] += "    ";
                 y_num[index_3] = Convert.ToInt32(r[1]);
                 index_3++;
                 if (index_3 > 5)
@@ -1781,7 +1881,13 @@ namespace Main
             index_3 = 0;
             while (r.Read())
             {
-                x_name[index_3] = Convert.ToString(r[0]);
+                x_name[index_3] = "";
+                string val_i = Convert.ToString(r[0]);
+                for (int i_index = 0; i_index < 9; i_index++)
+                {
+                    x_name[index_3] += val_i[i_index];
+                }
+                x_name[index_3] += "    ";
                 y_num[index_3] = Convert.ToInt32(r[1]);
                 index_3++;
                 if (index_3 > 5)
@@ -1836,7 +1942,13 @@ namespace Main
             int index_3 = 0;
             while (r.Read())
             {
-                x_name[index_3] = Convert.ToString(r[0]);
+                x_name[index_3] = "";
+                string val_i = Convert.ToString(r[0]);
+                for (int i_index = 0; i_index < 9; i_index++)
+                {
+                    x_name[index_3] += val_i[i_index];
+                }
+                x_name[index_3] += "    ";
                 y_num[index_3] = Convert.ToInt32(r[1]);
                 index_3++;
                 if (index_3 > 5)
@@ -1853,7 +1965,13 @@ namespace Main
             index_3 = 0;
             while (r.Read())
             {
-                x_name[index_3] = Convert.ToString(r[0]);
+                x_name[index_3] = "";
+                string val_i = Convert.ToString(r[0]);
+                for (int i_index = 0; i_index < 9; i_index++)
+                {
+                    x_name[index_3] += val_i[i_index];
+                }
+                x_name[index_3] += "    ";
                 y_num[index_3] = Convert.ToInt32(r[1]);
                 index_3++;
                 if (index_3 > 5)
@@ -1872,7 +1990,13 @@ namespace Main
             index_3 = 0;
             while (r.Read())
             {
-                x_name[index_3] = Convert.ToString(r[0]);
+                x_name[index_3] = "";
+                string val_i = Convert.ToString(r[0]);
+                for (int i_index = 0; i_index < 9; i_index++)
+                {
+                    x_name[index_3] += val_i[i_index];
+                }
+                x_name[index_3] += "    ";
                 y_num[index_3] = Convert.ToInt32(r[1]);
                 index_3++;
                 if (index_3 > 5)
@@ -1891,7 +2015,13 @@ namespace Main
             index_3 = 0;
             while (r.Read())
             {
-                x_name[index_3] = Convert.ToString(r[0]);
+                x_name[index_3] = "";
+                string val_i = Convert.ToString(r[0]);
+                for (int i_index = 0; i_index < 9; i_index++)
+                {
+                    x_name[index_3] += val_i[i_index];
+                }
+                x_name[index_3] += "    ";
                 y_num[index_3] = Convert.ToInt32(r[1]);
                 index_3++;
                 if (index_3 > 5)
@@ -1944,9 +2074,15 @@ namespace Main
             string[] x_name = new string[6];
             int[] y_num = new int[6];
             int index_3 = 0;
-            while(r.Read())
+            while (r.Read())
             {
-                x_name[index_3] = Convert.ToString(r[0]);
+                x_name[index_3] = "";
+                string val_i = Convert.ToString(r[0]);
+                for (int i_index = 0; i_index < 9; i_index++)
+                {
+                    x_name[index_3] += val_i[i_index];
+                }
+                x_name[index_3] += "    ";
                 y_num[index_3] = Convert.ToInt32(r[1]);
                 index_3++;
                 if (index_3 > 5)
@@ -1963,7 +2099,13 @@ namespace Main
             index_3 = 0;
             while (r.Read())
             {
-                x_name[index_3] = Convert.ToString(r[0]);
+                x_name[index_3] = "";
+                string val_i = Convert.ToString(r[0]);
+                for (int i_index = 0; i_index < 9; i_index++)
+                {
+                    x_name[index_3] += val_i[i_index];
+                }
+                x_name[index_3] += "    ";
                 y_num[index_3] = Convert.ToInt32(r[1]);
                 index_3++;
                 if (index_3 > 5)
@@ -1982,7 +2124,13 @@ namespace Main
             index_3 = 0;
             while (r.Read())
             {
-                x_name[index_3] = Convert.ToString(r[0]);
+                x_name[index_3] = "";
+                string val_i = Convert.ToString(r[0]);
+                for (int i_index = 0; i_index < 9; i_index++)
+                {
+                    x_name[index_3] += val_i[i_index];
+                }
+                x_name[index_3] += "    ";
                 y_num[index_3] = Convert.ToInt32(r[1]);
                 index_3++;
                 if (index_3 > 5)
@@ -2001,7 +2149,13 @@ namespace Main
             index_3 = 0;
             while (r.Read())
             {
-                x_name[index_3] = Convert.ToString(r[0]);
+                x_name[index_3] = "";
+                string val_i = Convert.ToString(r[0]);
+                for (int i_index = 0; i_index < 9; i_index++)
+                {
+                    x_name[index_3] += val_i[i_index];
+                }
+                x_name[index_3] += "    ";
                 y_num[index_3] = Convert.ToInt32(r[1]);
                 index_3++;
                 if (index_3 > 5)
@@ -2056,7 +2210,13 @@ namespace Main
                 int index_3 = 0;
                 while (r.Read())
                 {
-                    x_name[index_3] = Convert.ToString(r[0]);
+                    x_name[index_3] = "";
+                    string val_i = Convert.ToString(r[0]);
+                    for (int i_index = 0; i_index < 9; i_index++)
+                    {
+                        x_name[index_3] += val_i[i_index];
+                    }
+                    x_name[index_3] += "    ";
                     y_num[index_3] = Convert.ToInt32(r[1]);
                     index_3++;
                     if (index_3 > 5)
@@ -2073,7 +2233,13 @@ namespace Main
                 index_3 = 0;
                 while (r.Read())
                 {
-                    x_name[index_3] = Convert.ToString(r[0]);
+                    x_name[index_3] = "";
+                    string val_i = Convert.ToString(r[0]);
+                    for (int i_index = 0; i_index < 9; i_index++)
+                    {
+                        x_name[index_3] += val_i[i_index];
+                    }
+                    x_name[index_3] += "    ";
                     y_num[index_3] = Convert.ToInt32(r[1]);
                     index_3++;
                     if (index_3 > 5)
@@ -2390,7 +2556,6 @@ namespace Main
                 ;
             }
         }
-
 
         private void button29_Click(object sender, EventArgs e)
         {

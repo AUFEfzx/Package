@@ -8,12 +8,13 @@ from urllib import parse
 from wsgiref.simple_server import make_server
 
 
+
 def application(environ, start_response):
     start_response('200 OK', [('Content-Type', 'text/html')])
     # environ是当前请求的所有数据，包括Header和URL，body，这里只涉及到get
     # 获取当前get请求的所有数据，返回是string类型
     params = parse.parse_qs(environ['QUERY_STRING'])
-    # 获取get中key为name的值
+    # 获取get中key为name的值    
     name = params.get('name', [''])[0]
     od = params.get('od', [''])[0]
     td = params.get('td', [''])[0]
